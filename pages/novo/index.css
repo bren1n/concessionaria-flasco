@@ -1,7 +1,10 @@
 .form {
     position: relative;
     margin: auto;
-    width: 40%;
-    margin-top: 40px;
+    width: 97%;
+    margin-top: 15px;
+}
 
+.mainContainer {
+    width: 97%;
 }

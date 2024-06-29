@@ -30,8 +30,13 @@ $(document).ready(function() {
             listaCarros.push(obj);
     
             localStorage.setItem("carros", JSON.stringify(listaCarros));
+
+            alert('Veículo cadastrado com sucesso!');
+            window.location.href="../listar/index.html";
         } else {
             localStorage.setItem("carros", JSON.stringify([obj]));
+
+            alert('Erro ao cadastrar veículo!');
         }
     });
 })
