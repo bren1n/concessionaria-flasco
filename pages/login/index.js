@@ -1,4 +1,6 @@
 $(document).ready(function() {
+    localStorage.setItem('isLogged', 'false');
+
     $("#form").on("submit", function(e) {
         e.preventDefault();
         logar();
@@ -11,7 +13,8 @@ function logar() {
 
     if (login==="admin") {
         if (senha=="admin") {
-            window.location.href="../home/index.html";
+            window.location.href="../listar/index.html";
+            localStorage.setItem('isLogged', 'true');
         } else {
             alert("Login ou senha incorretos!");
         }
