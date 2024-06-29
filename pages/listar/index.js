@@ -2,6 +2,7 @@ $(document).ready(function () {
     exibeCarros();
 
     $("#buscar").on("click", function (e) {
+        console.log('cliquei no buscar');
         const marcaFiltro = $("#marca").val();
         const tipoFiltro = $("#tipo").val();
         const modeloFiltro = $("#modelo").val();
@@ -11,7 +12,18 @@ $(document).ready(function () {
         const numeroPortasFiltro = $("#numeroPortas").val();
         const precoFiltro = $("#preco").val();
 
-        filtrarCarros(marcaFiltro, tipoFiltro, modeloFiltro, anoFabricacaoFiltro, corFiltro, kmFiltro, numeroPortasFiltro, precoFiltro);
+        var filtroBusca = {
+            marca: marcaFiltro, 
+            tipo: tipoFiltro, 
+            modelo: modeloFiltro, 
+            ano: anoFabricacaoFiltro, 
+            cor: corFiltro, 
+            km: kmFiltro, 
+            portas: numeroPortasFiltro, 
+            preco: precoFiltro
+        }
+
+        filtrarCarros(filtroBusca);
     });
 });
 
@@ -53,56 +65,21 @@ function exibeCarros(p_listaCarros = null){
     }
 }
 
-function filtrarCarros(marca, tipo, modelo, ano, cor, km, portas, preco) {
+function filtrarCarros(filtro) {
     var listaCarros = JSON.parse(localStorage.getItem("carros"));
-    var newList = [];
 
-    if (Array.isArray(listaCarros)) {
-        listaCarros.forEach((element) => {
-            if (marca!= "" && marca!= null) {
-                if (element.marca == marca) {
-                    newList.push(element);
-                }
+    var newList = listaCarros.filter(carro => {
+        return Object.keys(filtro).every(key => {
+            if (filtro[key] != '' && carro[key] != '') {
+                return carro[key] == filtro[key];
             }
-            if (tipo!= "" && tipo!= null) {
-                if (element.tipo == tipo) {
-                    newList.push(element);
-                }
-            }
-            if (modelo!= "" && modelo!= null) {
-                if (element.modelo == modelo) {
-                    newList.push(element);
-                }
-            }
-            if (ano!= "" && ano!= null) {
-                if (element.ano == ano) {
-                    newList.push(element);
-                }
-            }
-            if (cor!= "" && cor!= null) {
-                if (element.cor == cor) {
-                    newList.push(element);
-                }
-            }
-            if (km!= "" && km!= null) {
-                if (element.km == km) {
-                    newList.push(element);
-                }
-            }
-            if (portas!= "" && portas!= null) {
-                if (element.portas == portas) {
-                    newList.push(element);
-                }
-            }
-            if (preco!= "" && preco!= null) {
-                if (element.preco == preco) {
-                    newList.push(element);
-                }
-            }
+            return true;
         });
-    }
+    });
 
     console.log(newList);
+
+    $("#tableCarsFiltered > tbody").empty();
 
     newList.forEach((element, i) => {
         $("#tableCarsFiltered").append(
