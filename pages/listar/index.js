@@ -97,10 +97,10 @@ function filtrarCarros(filtro) {
 
     console.log(newList);
 
-    $("#tableCarsFiltered > tbody").empty();
+    $("#tableCars > tbody").empty();
 
     newList.forEach((element, i) => {
-        $("#tableCarsFiltered").append(
+        $("#tableCars").append(
             `<tr>
                 <td>
                     ${i + 1}
